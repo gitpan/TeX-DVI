@@ -1,6 +1,10 @@
 
 Changes for TeX::DVI and TeX::DVI::Parse:
 
+0.110 Thu Dec  1 19:34:03 MET 2004
+	TeX::DVI::Parse: Added fix for negative values with put_rule,
+	set_rule, reported by Jerry Hagon.
+
 0.101 Wed Mar 21 09:37:58 MET 2001
 	Added the PREREQ_PM to Makefile.PL.
 

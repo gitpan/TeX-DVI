@@ -9,10 +9,13 @@ package TeX::DVI::Parse;
 
 use FileHandle;
 
-$VERSION = 0.05;
+$VERSION = '0.110';
 
 sub make_dim
 	{
+	if (scalar(@_) == 8) {
+		return make_dim(@_[0 .. 3]), make_dim(@_[4 .. 7]);
+	}
 	my $result = shift;
 	while (@_) { $result = $result * 256 + shift; }
 	$result;
@@ -35,12 +38,12 @@ sub make_special
 	[ "set_char", "CC", 2 ],
 	[ "set_char", "CCC", 3 ],
 	[ "set_char", "cCCC", 4 ],
-	[ "set_rule", "NN" ],
+	[ "set_rule", "cCCCcCCC", 8 ],
 	[ "put_char", "C" ],
 	[ "put_char", "CC", 2 ],
 	[ "put_char", "CCC", 3 ],
 	[ "put_char", "CCCC", 4 ],
-	[ "put_rule", "NN" ],
+	[ "put_rule", "cCCCcCCC", 8 ],
 	"nop",
 	[ "bop", "NNNNNNNNNNcCCC", 4 ],
 	"eop",
@@ -402,7 +405,7 @@ no parameter
 
 =head1 VERSION
 
-0.02
+0.110
 
 =head1 SEE ALSO
 
@@ -410,9 +413,8 @@ Font::TFM(3), TeX::DVI(3), perl(1).
 
 =head1 AUTHOR
 
-(c) 1997--1998 Jan Pazdziora, adelton@fi.muni.cz,
-http://www.fi.muni.cz/~adelton/ at Faculty of Informatics, Masaryk
-University in Brno, Czech Republic
+(c) 1997--1998, 2004 Jan Pazdziora, adelton@fi.muni.cz,
+http://www.fi.muni.cz/~adelton/
 
 =cut
 
