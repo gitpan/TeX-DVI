@@ -10,7 +10,7 @@ package TeX::DVI;
 use FileHandle;
 use Font::TFM;
 
-$VERSION = 0.052;
+$VERSION = '0.100';
 
 sub new
 	{
@@ -43,7 +43,7 @@ sub preamble
 	my (@currenttime, $currentasciitime, $comment, $commentlength);
 	@currenttime = gmtime time;
 	$currentasciitime = sprintf "%02d/%02d/%02d %02d:%02d:%02d GMT", $currenttime[3],
-		$currenttime[4] + 1, $currenttime[5], (gmtime(time))[2,1,0];
+		$currenttime[4] + 1, $currenttime[5] % 100, @currenttime[2, 1, 0];
 	$comment = "TeX::DVI.pm output ".$currentasciitime;
 	$commentlength = length $comment;
 	my @preamble = (247, 2, 25400000, 473628672, 1000,
@@ -249,7 +249,7 @@ know why you call the method you call.
 
 =head1 VERSION
 
-0.052
+0.100
 
 =head1 AUTHOR
 

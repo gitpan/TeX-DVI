@@ -1,6 +1,9 @@
 
 Changes for TeX::DVI and TeX::DVI::Parse:
 
+0.100 Mon Feb 14 18:08:07 MET 2000
+	Fixed sprintf/Y2K trouble.
+
 0.052 Thu Dec  3 14:45:27 MET 1998
 	Added binmode, suggested by Randy Kobes.
 
