@@ -1,81 +1,16 @@
 
-package TeX::DVI;
-
 =head1 NAME
 
-TeX::DVI -- write out DVI (Device INdependent) file
-
-=head1 SYNOPSIS
-
-	use TeX::DVI;
-	use Font::TFM;
-
-	my $dvi = new TeX::DVI "texput.dvi";
-	my $font = new_at Font::TFM "cmr10", 12;
-	$dvi->preamble();
-	$dvi->begin_page();
-	$dvi->push();
-	my $fn = $dvi->font_def($font);
-	$dvi->font($fn);
-	$dvi->word("difficulty");
-	$dvi->hskip($font->space());
-	$dvi->word("AVA");
-	$dvi->black_box($font->em_width(), $font->x_height());
-	$dvi->pop();
-	$dvi->end_page();
-	$dvi->postamble();
-
-=head1 DESCRIPTION
-
-Method C<TeX::DVI::new> creates a new DVI object in memory and opens
-the output DVI file. After that, elements can be written into the
-file using appropriate methods.
-
-These are the methods available on the `Font::TFM' object:
-
-=over
-
-=item preamble, postamble, begin_page, end_page, push, pop
-
-Writes out appropriate command of the C<.dvi> file.
-
-=item font_def
-
-The parameter is a reference to a C<Font::TFM> object. Info out of this
-object will be printed out. The method returns the internal number
-of the font in this C<.dvi> file.
-
-=item font
-
-Writes out the font_sel command, the parametr is the number returned
-by C<font_def>.
-
-=item hskip, vskip
-
-Skips.
-
-=item black_box
-
-Creates a black box, can be used for hrules and vrules.
-
-=item special
-
-Writes out the special command, one parameter is written as the
-command.
-
-=item word
-
-Writes out a word given as the first parameter. The currently selected
-font is used to gather information about ligatures and kernings.
-
-=back
+TeX::DVI -- write out TeX's DVI (DeVice Independent) file
 
 =cut
+
+package TeX::DVI;
 
 use FileHandle;
 use Font::TFM;
 
-$VERSION = 0.04;
+$VERSION = 0.05;
 
 sub new
 	{
@@ -92,6 +27,8 @@ sub new
 	$self->{currdvipush} = $self->{maxdvipush} = 0;
 	$self;
 	}
+sub close
+	{ shift->{fh}->close; }
 sub output
 	{
 	my $self = shift;
@@ -104,9 +41,9 @@ sub preamble
 	my $self = shift;
 	my (@currenttime, $currentasciitime, $comment, $commentlength);
 	@currenttime = gmtime time;
-	$currentasciitime = sprintf "%d/%d/%d %d:%d:%d GMT", $currenttime[3],
+	$currentasciitime = sprintf "%02d/%02d/%02d %02d:%02d:%02d GMT", $currenttime[3],
 		$currenttime[4] + 1, $currenttime[5], (gmtime(time))[2,1,0];
-	$comment = "DVI.pm output ".$currentasciitime;
+	$comment = "TeX::DVI.pm output ".$currentasciitime;
 	$commentlength = length $comment;
 	my @preamble = (247, 2, 25400000, 473628672, 1000,
 			$commentlength, $comment);
@@ -226,33 +163,81 @@ sub word
 		$self->hskip($kern);
 		}
 	}
+1;
 
-sub Version
-	{
-	my $self = shift;
-	$VERSION;
-	}
+=head1 SYNOPSIS
 
-=head1 CHANGES
+	use TeX::DVI;
+	use Font::TFM;
+
+	my $dvi = new TeX::DVI "texput.dvi";
+	my $font = new_at Font::TFM "cmr10", 12
+		or die "Error loading cmr10 at 12 pt: $Font::TFM::errstr\n";
+	$dvi->preamble();
+	$dvi->begin_page();
+	$dvi->push();
+	my $fn = $dvi->font_def($font);
+	$dvi->font($fn);
+	$dvi->word("difficulty");
+	$dvi->hskip($font->space());
+	$dvi->word("AVA");
+	$dvi->black_box($font->em_width(), $font->x_height());
+	$dvi->pop();
+	$dvi->end_page();
+	$dvi->postamble();
+	$dvi->close();
+
+=head1 DESCRIPTION
+
+Method B<TeX::DVI::new> creates a new DVI object in memory and opens
+the output DVI file. After that, elements can be written into the
+file using appropriate methods.
+
+These are the methods available on the B<Font::TFM> object:
 
 =over
 
-=item 0.04 Sun Jun  1 13:28:41 MET DST 1997
+=item preamble, postamble, begin_page, end_page, push, pop
 
-Bug fix.
+Writes out appropriate command of the C<.dvi> file.
 
-=item 0.03 Sun Feb 16 13:55:26 MET 1997
+=item font_def
 
-C<TeX::DVI::word> no longer does the lig/kern expansion but calls
-C<Font::TFM::expand>.
+The parameter is a reference to a B<Font::TFM> object. Info out of this
+object will be printed out. The method returns the internal number
+of the font in this C<.dvi> file.
 
-Little/big endian incompatibility fixed.
+=item font
 
-Name set to C<TeX::DVI> instead of just C<DVI>.
+Writes out the font_sel command, the parametr is the number returned
+by B<font_def>.
 
-=item 0.02 Thu Feb 13 20:43:38 MET 1997
+=item hskip, vskip
 
-First version released/announced on public.
+Skips.
+
+=item black_box
+
+Creates a black box, can be used for hrules and vrules.
+
+=item special
+
+Writes out the special command, one parameter is written as the
+command.
+
+=item word
+
+Writes out a word given as the first parameter. The currently selected
+font is used to gather information about ligatures and kernings,
+that's why it's possible to say
+
+	$dvi->word("difficulty");
+	
+and the C<ffi> will be ligatured all right.
+
+=item close
+
+Close the file.
 
 =back
 
@@ -263,18 +248,17 @@ know why you call the method you call.
 
 =head1 VERSION
 
-0.04
-
-=head1 SEE ALSO
-
-Font::TFM, perl(1).
+0.05
 
 =head1 AUTHOR
 
-(c) 1996, 1997 Jan Pazdziora, adelton@fi.muni.cz
+(c) 1996--1998 Jan Pazdziora, adelton@fi.muni.cz,
+http://www.fi.muni.cz/~adelton/ at Faculty of Informatics, Masaryk
+University in Brno, Czech Republic
 
-at Faculty of Informatics, Masaryk University, Brno
+=head1 SEE ALSO
+
+Font::TFM(3), TeX::DVI::Parse(3), perl(1).
 
 =cut
 
-1;
