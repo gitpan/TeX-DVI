@@ -101,6 +101,7 @@ sub new
 	my $self = {};
 	my $filename = shift;
 	$self->{'fh'} = new FileHandle($filename);
+	binmode $self->{'fh'};
 	bless $self, $class;
 	$self;
 	}

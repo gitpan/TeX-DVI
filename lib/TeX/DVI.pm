@@ -10,7 +10,7 @@ package TeX::DVI;
 use FileHandle;
 use Font::TFM;
 
-$VERSION = 0.05;
+$VERSION = 0.052;
 
 sub new
 	{
@@ -18,6 +18,7 @@ sub new
 	my $fh = new FileHandle "> $filename";
 	if (not defined $fh)
 		{ return undef; }
+	binmode $fh;
 	my $self = {};
 	bless $self;
 	$self->{fh} = $fh;
@@ -123,13 +124,13 @@ sub push
 sub hskip
 	{
 	my ($self, $skip) = @_;
-	$self->output("CN", 146, $skip);
+	$self->output("CN", 146, int($skip));
 	return $skip;
 	}
 sub vskip
 	{
 	my ($self, $skip) = @_;
-	$self->output("CN", 160, $skip);
+	$self->output("CN", 160, int($skip));
 	return $skip;
 	}
 sub black_box
@@ -139,7 +140,7 @@ sub black_box
 	$height = 0 unless (defined $height);
 	$depth = 0 unless (defined $depth);
 	$self->vskip($depth);
-	$self->output("CNN", 137, $height + $depth, $width);
+	$self->output("CNN", 137, int($height + $depth), int($width));
 	$self->vskip(-$depth);
 	}
 sub special
@@ -248,7 +249,7 @@ know why you call the method you call.
 
 =head1 VERSION
 
-0.05
+0.052
 
 =head1 AUTHOR
 

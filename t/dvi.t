@@ -40,7 +40,7 @@ print "ok 4\n";
 my $out = <FILE>;
 close FILE;
 
-$out =~ s!output.*GMT!output 18/08/98 16:55:36 GMT!;
+$out =~ s!output.*GMT!output 19/08/98 15:52:01 GMT!;
 
 print "Read the correct output\n";
 open FILE, "$dir/texput1.dvi" or do
