@@ -75,7 +75,7 @@ font is used to gather information about ligatures and kernings.
 use FileHandle;
 use Font::TFM;
 
-$VERSION = 0.03;
+$VERSION = 0.04;
 
 sub new
 	{
@@ -237,6 +237,10 @@ sub Version
 
 =over
 
+=item 0.04 Sun Jun  1 13:28:41 MET DST 1997
+
+Bug fix.
+
 =item 0.03 Sun Feb 16 13:55:26 MET 1997
 
 C<TeX::DVI::word> no longer does the lig/kern expansion but calls
@@ -259,7 +263,7 @@ know why you call the method you call.
 
 =head1 VERSION
 
-0.03
+0.04
 
 =head1 SEE ALSO
 

@@ -1,17 +1,33 @@
 
-Module TeX::DVI: write out DVI (Device INdependent) file
+Module TeX::DVI:
+
+	Low level methods to write out DVI (DeVice Independent) file,
+	the default output format of the TeX typesetting file.
 
 Installation:
 
-perl Makefile.PL
-make
-make install
+	perl Makefile.PL
+	make
+	make install
+
+Use:
+
+	use TeX::DVI;
+	my $dvi = new TeX::DVI "texput.dvi";
+	$dvi->preamble();
+	$dvi->begin_page();
+
 
 Todo list:
 
-Tests.
+	Tests.
 
-Copyright (c) 1996, 1997 Jan Pazdziora, adelton@fi.muni.cz. All rights
-reserved. This program is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself. 
+Available:
+
+	http://www.fi.muni.cz/~adelton/perl/ and on your favorite CPAN
+	site (http://www.perl.com/perl/CPAN/).
+
+Copyright: (c) 1996, 1997 Jan Pazdziora, adelton@fi.muni.cz. All rights
+	reserved. This module is free software; you can redistribute it
+	and/or modify it under the same terms as Perl itself. 
 
