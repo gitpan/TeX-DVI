@@ -10,7 +10,7 @@ package TeX::DVI;
 use FileHandle;
 use Font::TFM;
 
-$VERSION = '0.100';
+$VERSION = '0.101';
 
 sub new
 	{
@@ -249,11 +249,11 @@ know why you call the method you call.
 
 =head1 VERSION
 
-0.100
+0.101
 
 =head1 AUTHOR
 
-(c) 1996--1998 Jan Pazdziora, adelton@fi.muni.cz,
+(c) 1996--2001 Jan Pazdziora, adelton@fi.muni.cz,
 http://www.fi.muni.cz/~adelton/ at Faculty of Informatics, Masaryk
 University in Brno, Czech Republic
 

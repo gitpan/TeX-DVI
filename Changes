@@ -1,6 +1,9 @@
 
 Changes for TeX::DVI and TeX::DVI::Parse:
 
+0.101 Wed Mar 21 09:37:58 MET 2001
+	Added the PREREQ_PM to Makefile.PL.
+
 0.100 Mon Feb 14 18:08:07 MET 2000
 	Fixed sprintf/Y2K trouble.
 
