@@ -12,3 +12,4 @@ t/parse.t
 t/parse.txt
 t/texput1.dvi
 t/texput2.dvi
+META.yml                                 Module meta-data (added by MakeMaker)

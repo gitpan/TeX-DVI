@@ -1,6 +1,10 @@
 
 Changes for TeX::DVI and TeX::DVI::Parse:
 
+1.01 Thu Mar  3 22:21:27 CET 2011
+	Updating the upstream URL to
+	http://www.adelton.com/perl/TeX-DVI/
+
 0.110 Thu Dec  1 19:34:03 MET 2004
 	TeX::DVI::Parse: Added fix for negative values with put_rule,
 	set_rule, reported by Jerry Hagon.

@@ -9,7 +9,7 @@ package TeX::DVI::Parse;
 
 use FileHandle;
 
-$VERSION = '0.110';
+$VERSION = '1.01';
 
 sub make_dim
 	{
@@ -405,16 +405,24 @@ no parameter
 
 =head1 VERSION
 
-0.110
+1.01
+
+=head1 AVAILABLE FROM
+
+http://www.adelton.com/perl/TeX-DVI/
+
+=head1 AUTHOR
+
+(c) 1996--2011 Jan Pazdziora.
+
+All rights reserved. This package is free software; you can
+redistribute it and/or modify it under the same terms as Perl itself.
+
+Contact the author at jpx dash perl at adelton dot com.
 
 =head1 SEE ALSO
 
 Font::TFM(3), TeX::DVI(3), perl(1).
-
-=head1 AUTHOR
-
-(c) 1997--1998, 2004 Jan Pazdziora, adelton@fi.muni.cz,
-http://www.fi.muni.cz/~adelton/
 
 =cut
 
